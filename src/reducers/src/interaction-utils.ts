@@ -111,9 +111,9 @@ export function getTooltipDisplayDeltaValue({
 
       // safely cast string
       displayDeltaValue = defaultFormatter(displayDeltaValue);
-      const deltaFirstChar = displayDeltaValue.charAt(0);
+      const deltaFirstChar = displayDeltaValue?.charAt(0);
 
-      if (deltaFirstChar !== '+' && !NEGATIVE_SIGNS.includes(deltaFirstChar)) {
+      if (deltaFirstChar && deltaFirstChar !== '+' && !NEGATIVE_SIGNS.includes(deltaFirstChar)) {
         displayDeltaValue = `+${displayDeltaValue}`;
       }
     } else {

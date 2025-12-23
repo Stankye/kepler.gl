@@ -28,7 +28,7 @@ const getPlugins = isTest => {
     [
       'module-resolver',
       {
-        extensions: ['.js', '.ts', '.tsx', '.json'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
         root: ['./src'],
         alias: {
           test: './test',
@@ -39,8 +39,10 @@ const getPlugins = isTest => {
           'maplibregl-mapbox-request-transformer': `${nodeModules}/maplibregl-mapbox-request-transformer/src/index.cjs`,
           // compile from @kepler.gl src
           ...RESOLVE_ALIASES,
-          // loaders.gl cjs bundle of polyfills is not transpiled properly, use esm instead
-          '@loaders.gl/polyfills': `${nodeModules}/@loaders.gl/polyfills/src`
+          // Node.js 24: use compiled CJS version instead of ESM source
+          '@loaders.gl/polyfills': `${nodeModules}/@loaders.gl/polyfills/dist/index.cjs`,
+          // Node.js 24: cheerio v1.1.2 exports changed, enzyme still uses old path
+          'cheerio/lib/utils': `${nodeModules}/cheerio/dist/commonjs/utils.js`
         }
       }
     ],

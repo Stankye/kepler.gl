@@ -163,12 +163,11 @@ export const addDataToMapUpdater = (
     ])(state);
   }
 
-  // @ts-expect-error
+  // @ts-expect-error config type needs refinement
   let parsedConfig: ParsedConfig = config;
 
   if (isValidConfig(config)) {
     // if passed in saved config
-    // @ts-expect-error
     parsedConfig = state.visState.schema.parseSavedConfig(config);
   }
   const oldLayers = state.visState.layers;

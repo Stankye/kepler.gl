@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright contributors to the kepler.gl project
 
-import {handleActions} from 'redux-actions';
+import {handleActions} from './handle-actions';
 import {ActionTypes} from '@kepler.gl/actions';
 import * as mapStateUpdaters from './map-state-updaters';
 
@@ -21,7 +21,6 @@ const actionHandler = {
 
 /* Reducer */
 export const mapStateReducerFactory = (initialState = {}) =>
-  // @ts-expect-error
   handleActions(actionHandler, {
     ...mapStateUpdaters.INITIAL_MAP_STATE,
     ...initialState,

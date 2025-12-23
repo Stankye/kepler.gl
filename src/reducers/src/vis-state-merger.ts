@@ -822,7 +822,9 @@ export function validateSavedVisualChannels(
   savedLayer: ParsedLayer,
   options: {throwOnError?: boolean} = {}
 ): null | Layer {
-  Object.values(newLayer.visualChannels).forEach(({field, scale, key}) => {
+  (
+    Object.values(newLayer.visualChannels) as Array<{field: string; scale: string; key: string}>
+  ).forEach(({field, scale, key}) => {
     let foundField;
     if (savedLayer.config) {
       if (savedLayer.config[field]) {

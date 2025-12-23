@@ -2,7 +2,7 @@
 // Copyright contributors to the kepler.gl project
 
 import {ActionTypes} from '@kepler.gl/actions';
-import {handleActions} from 'redux-actions';
+import {handleActions} from './handle-actions';
 import * as visStateUpdaters from './vis-state-updaters';
 
 /**
@@ -170,7 +170,6 @@ const actionHandler = {
 
 // construct vis-state reducer
 export const visStateReducerFactory = (initialState = {}) =>
-  // @ts-expect-error
   handleActions(actionHandler, {
     ...visStateUpdaters.INITIAL_VIS_STATE,
     ...initialState,

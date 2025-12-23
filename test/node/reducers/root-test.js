@@ -2,7 +2,7 @@
 // Copyright contributors to the kepler.gl project
 
 import test from 'tape';
-import keplerGlReducer from '@kepler.gl/reducers';
+import keplerGlReducer, {handleActions} from '@kepler.gl/reducers';
 import {
   registerEntry,
   resetMapConfig,
@@ -13,8 +13,10 @@ import {
   addDataToMap,
   ActionTypes
 } from '@kepler.gl/actions';
-import {createAction, handleActions} from 'redux-actions';
 import {applyActions} from 'test/helpers/mock-state';
+
+// Simple createAction replacement
+const createAction = (type) => (payload) => ({type, payload});
 
 test('keplerGlReducer.initialState', t => {
   const test1Reducer = keplerGlReducer.initialState({

@@ -212,9 +212,9 @@ export const DEFAULT_EXPORT_JSON: ExportJson = {
  * @public
  */
 export const DEFAULT_EXPORT_MAP: ExportMap = {
-  [EXPORT_MAP_FORMATS.HTML]: DEFAULT_EXPORT_HTML,
-  [EXPORT_MAP_FORMATS.JSON]: DEFAULT_EXPORT_JSON,
-  format: EXPORT_MAP_FORMATS.HTML
+  HTML: DEFAULT_EXPORT_HTML,
+  JSON: DEFAULT_EXPORT_JSON,
+  format: EXPORT_MAP_FORMATS.HTML as 'HTML'
 };
 
 /**
@@ -521,7 +521,6 @@ export const setExportImageSettingUpdater = (
     ...state,
     exportImage: {
       ...updated,
-      // @ts-expect-error
       // TODO: calculateExportImageSize does not return imageSize.zoomOffset,
       // do we need take this value from current state, or return defaul value = 0
       imageSize
@@ -725,7 +724,6 @@ export const setExportMapFormatUpdater = (
   ...state,
   exportMap: {
     ...state.exportMap,
-    // @ts-expect-error
     format
   }
 });
@@ -766,7 +764,6 @@ export const addNotificationUpdater = (
   {payload}: UIStateActions.AddNotificationUpdaterAction
 ): UiState => {
   const oldNotifications = state.notifications || [];
-  // @ts-expect-error
   const payloadId = payload?.id;
   const notificationToUpdate = payloadId ? oldNotifications.find(n => n.id === payloadId) : null;
 

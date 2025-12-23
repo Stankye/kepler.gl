@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright contributors to the kepler.gl project
 
-import {Action, handleActions} from 'redux-actions';
+import {UnknownAction} from 'redux';
 import {
   UPDATE_AI_ASSISTANT_CONFIG,
   UPDATE_AI_ASSISTANT_MESSAGES,
@@ -58,20 +58,27 @@ const initialState: AiAssistantState = {
   }
 };
 
-export const aiAssistantReducer = handleActions<AiAssistantState, any>(
-  {
-    [UPDATE_AI_ASSISTANT_CONFIG]: updateAiAssistantConfigHandler,
-    [UPDATE_AI_ASSISTANT_MESSAGES]: updateAiAssistantMessagesHandler,
-    [SET_START_SCREEN_CAPTURE]: setStartScreenCaptureHandler,
-    [SET_SCREEN_CAPTURED]: setScreenCapturedHandler,
-    [SET_MAP_BOUNDARY]: setMapBoundaryHandler
-  },
-  initialState
-);
+type PayloadAction<T> = UnknownAction & { payload: T };
+
+const actionHandler = {
+  [UPDATE_AI_ASSISTANT_CONFIG]: updateAiAssistantConfigHandler,
+  [UPDATE_AI_ASSISTANT_MESSAGES]: updateAiAssistantMessagesHandler,
+  [SET_START_SCREEN_CAPTURE]: setStartScreenCaptureHandler,
+  [SET_SCREEN_CAPTURED]: setScreenCapturedHandler,
+  [SET_MAP_BOUNDARY]: setMapBoundaryHandler
+};
+
+export function aiAssistantReducer(
+  state: AiAssistantState = initialState,
+  action: UnknownAction
+): AiAssistantState {
+  const handler = actionHandler[action.type as string];
+  return handler ? handler(state, action) : state;
+}
 
 function updateAiAssistantConfigHandler(
   state: AiAssistantState,
-  action: Action<AiAssistantConfig>
+  action: PayloadAction<AiAssistantConfig>
 ) {
   return {
     ...state,
@@ -79,21 +86,21 @@ function updateAiAssistantConfigHandler(
   };
 }
 
-function updateAiAssistantMessagesHandler(state: AiAssistantState, action: Action<MessageModel[]>) {
+function updateAiAssistantMessagesHandler(state: AiAssistantState, action: PayloadAction<MessageModel[]>) {
   return {
     ...state,
     messages: action.payload
   };
 }
 
-function setStartScreenCaptureHandler(state: AiAssistantState, action: Action<boolean>) {
+function setStartScreenCaptureHandler(state: AiAssistantState, action: PayloadAction<boolean>) {
   return {
     ...state,
     screenshotToAsk: {startScreenCapture: action.payload, screenCaptured: ''}
   };
 }
 
-function setScreenCapturedHandler(state: AiAssistantState, action: Action<string>) {
+function setScreenCapturedHandler(state: AiAssistantState, action: PayloadAction<string>) {
   return {
     ...state,
     screenshotToAsk: {...state.screenshotToAsk, screenCaptured: action.payload}
@@ -102,7 +109,7 @@ function setScreenCapturedHandler(state: AiAssistantState, action: Action<string
 
 function setMapBoundaryHandler(
   state: AiAssistantState,
-  action: Action<{nw: [number, number]; se: [number, number]}>
+  action: PayloadAction<{nw: [number, number]; se: [number, number]}>
 ) {
   return {
     ...state,

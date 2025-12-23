@@ -9,16 +9,13 @@ import {
   RegisterEntryUpdaterAction,
   RenameEntryUpdaterAction
 } from '@kepler.gl/actions';
-import {handleActions} from 'redux-actions';
+import {handleActions} from './handle-actions';
 
 import {coreReducerFactory, KeplerGlState} from './core';
 
 type KeplerGlStateMap = {
   [id: string]: Partial<KeplerGlState>;
 };
-
-type CombineRegisterUpdateActions = RegisterEntryUpdaterAction['payload'] &
-  RenameEntryUpdaterAction['payload']; // Extend this type with additional actions to enforce strict typings
 
 // INITIAL_STATE
 const initialCoreState = {};
@@ -97,10 +94,7 @@ export function provideInitialState(initialState, extraReducers?) {
       [ActionTypes.RENAME_ENTRY]: handleRenameEntry
     };
 
-    return handleActions<KeplerGlStateMap, CombineRegisterUpdateActions>(
-      handlers,
-      initialCoreState
-    )(state, action);
+    return handleActions<KeplerGlStateMap>(handlers, initialCoreState)(state, action);
   };
 }
 

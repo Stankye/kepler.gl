@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 // Copyright contributors to the kepler.gl project
 
-import {combineReducers, createStore, applyMiddleware, compose} from 'redux';
+import {combineReducers, legacy_createStore as createStore, applyMiddleware, compose} from 'redux';
 import {routerReducer, routerMiddleware} from 'react-router-redux';
 import {taskMiddleware} from 'react-palm/tasks';
-import thunk from 'redux-thunk';
+import {thunk} from 'redux-thunk';
 
 import {browserHistory} from 'react-router';
 import appReducer from './app';

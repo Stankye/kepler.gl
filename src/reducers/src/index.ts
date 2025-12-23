@@ -8,6 +8,10 @@
 export {default} from './root';
 export {default as keplerGlReducer} from './root';
 
+// handleActions utility (Redux 5 compatible replacement for redux-actions)
+export {handleActions} from './handle-actions';
+export type {ActionHandler, ActionHandlerMap} from './handle-actions';
+
 // Core Reducer
 export {
   default as keplerGlReducerCore,

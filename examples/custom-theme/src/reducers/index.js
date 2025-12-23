@@ -2,7 +2,6 @@
 // Copyright contributors to the kepler.gl project
 
 import {combineReducers} from 'redux';
-import {handleActions} from 'redux-actions';
 
 import keplerGlReducer from '@kepler.gl/reducers';
 
@@ -13,16 +12,19 @@ const initialAppState = {
   appName: 'example'
 };
 
+// Action handlers
+const actionHandler = {
+  [INIT]: state => ({
+    ...state,
+    loaded: true
+  })
+};
+
 // App reducer
-export const appReducer = handleActions(
-  {
-    [INIT]: state => ({
-      ...state,
-      loaded: true
-    })
-  },
-  initialAppState
-);
+export function appReducer(state = initialAppState, action) {
+  const handler = actionHandler[action?.type];
+  return handler ? handler(state, action) : state;
+}
 
 // export demoReducer to be combined in website app
 export default combineReducers({

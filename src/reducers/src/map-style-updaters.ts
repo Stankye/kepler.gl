@@ -593,9 +593,7 @@ export const receiveMapConfigUpdater = (
     : mapStyle;
 
   // set custom3DBuildingColor: true if mapStyle contains threeDBuildingColor
-  // @ts-expect-error
   merged.custom3DBuildingColor =
-    // @ts-expect-error
     Boolean(mapStyle.threeDBuildingColor) || merged.custom3DBuildingColor;
   const newState = mapConfigChangeUpdater(state, {payload: merged});
 
@@ -606,7 +604,7 @@ function getLoadMapStyleTasks(mapStyles, mapboxApiAccessToken, mapboxApiUrl, onS
   return [
     Task.all(
       Object.values(mapStyles)
-        // @ts-expect-error
+        // @ts-expect-error Object.values returns unknown[]
         .map(({id, url, accessToken}) => ({
           id,
           url: getStyleDownloadUrl(url, accessToken || mapboxApiAccessToken, mapboxApiUrl)
@@ -664,7 +662,6 @@ export const loadCustomMapStyleUpdater = (
   {payload: {icon, style, error}}: MapStyleActions.LoadCustomMapStyleUpdaterAction
 ): MapStyle => ({
   ...state,
-  // @ts-expect-error
   inputStyle: {
     ...state.inputStyle,
     // style json and icon will load asynchronously
@@ -673,11 +670,9 @@ export const loadCustomMapStyleUpdater = (
           id:
             state.inputStyle.custom === 'MANAGED'
               ? state.inputStyle.id // custom MANAGED type
-              : // @ts-expect-error
-                style.id || generateHashId(), // custom LOCAL type
+              : style.id || generateHashId(), // custom LOCAL type
           // make a copy of the style object
           style: cloneDeep(style),
-          // @ts-expect-error
           label: state.inputStyle.label || style.name,
           // gathering layer group info from style json
           layerGroups: getLayerGroupsFromStyle(style)

@@ -26,7 +26,8 @@ const port = 3003;
 const RESOLVE_LOCAL_ALIASES = {
   react: `${NODE_MODULES_DIR}/react`,
   'react-dom': `${NODE_MODULES_DIR}/react-dom`,
-  'react-redux': `${NODE_MODULES_DIR}/react-redux/lib`,
+  // react-redux v9 uses dist/cjs instead of lib
+  'react-redux': `${NODE_MODULES_DIR}/react-redux/dist/cjs`,
   'styled-components': `${NODE_MODULES_DIR}/styled-components`,
   'react-intl': `${NODE_MODULES_DIR}/react-intl`,
   'react-palm': `${NODE_MODULES_DIR}/react-palm`,

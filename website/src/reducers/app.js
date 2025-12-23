@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Copyright contributors to the kepler.gl project
 
-import {handleActions} from 'redux-actions';
-
 const DEFAULT_APP_STATE = {};
 
-export default handleActions(
-  {
-    INIT: state => ({...state, ready: true})
-  },
-  DEFAULT_APP_STATE
-);
+const actionHandler = {
+  INIT: state => ({...state, ready: true})
+};
+
+export default function appReducer(state = DEFAULT_APP_STATE, action) {
+  const handler = actionHandler[action?.type];
+  return handler ? handler(state, action) : state;
+}

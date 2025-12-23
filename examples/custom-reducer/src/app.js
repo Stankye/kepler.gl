@@ -5,7 +5,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import KeplerGl from '@kepler.gl/components';
-import {createAction} from 'redux-actions';
 
 import {addDataToMap, wrapTo} from '@kepler.gl/actions';
 import sampleData from './data/sample-data';
@@ -14,7 +13,7 @@ import config from './configurations/config';
 const MAPBOX_TOKEN = process.env.MapboxAccessToken; // eslint-disable-line
 
 // extra actions plugged into kepler.gl reducer (store.js)
-const hideAndShowSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
+const hideAndShowSidePanel = () => ({type: 'HIDE_AND_SHOW_SIDE_PANEL'});
 
 class App extends Component {
   componentDidMount() {

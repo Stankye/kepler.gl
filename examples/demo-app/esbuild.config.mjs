@@ -51,7 +51,8 @@ const getThirdPartyLibraryAliases = useKeplerNodeModules => {
     ...localSources,
     react: `${nodeModulesDir}/react`,
     'react-dom': `${nodeModulesDir}/react-dom`,
-    'react-redux': `${nodeModulesDir}/react-redux/lib`,
+    // react-redux v9 uses dist/cjs instead of lib
+    'react-redux': `${nodeModulesDir}/react-redux/dist/cjs`,
     'styled-components': `${nodeModulesDir}/styled-components`,
     'react-intl': `${nodeModulesDir}/react-intl`,
     'react-palm': `${nodeModulesDir}/react-palm`,

@@ -233,10 +233,8 @@ export const loadCloudMapUpdater = (
   // payload called by provider.downloadMap
   const uploadFileTask = LOAD_CLOUD_MAP_TASK({provider, payload: loadParams}).bimap(
     // success
-    // @ts-expect-error
     response => loadCloudMapSuccess({response, loadParams, provider, onSuccess, onError}),
     // error
-    // @ts-expect-error
     error => loadCloudMapError({error, provider, onError})
   );
 

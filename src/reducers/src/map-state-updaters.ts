@@ -249,7 +249,6 @@ export const resetMapConfigUpdater = (state: MapState): MapState => ({
 export const receiveMapConfigUpdater = (
   state: MapState,
   {
-    // @ts-expect-error
     payload: {config = {}, options = {}, bounds = null}
   }: {
     type?: typeof ActionTypes.RECEIVE_MAP_CONFIG;

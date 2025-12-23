@@ -1947,7 +1947,6 @@ export const removeEffectUpdater = (
   const effectToRemove = effects[idx];
   return {
     ...state,
-    // @ts-expect-error fixed in ts
     effects: filterOutById(effectToRemove.id)(effects),
     effectOrder: effectOrder.filter(effectId => effectId !== effectToRemove.id)
   };
@@ -2277,7 +2276,9 @@ export const mouseMoveUpdater = (
   state: VisState,
   {evt}: VisStateActions.OnMouseMoveUpdaterAction
 ): VisState => {
-  if (Object.values(state.interactionConfig).some(config => config.enabled)) {
+  if (
+    Object.values(state.interactionConfig).some(config => (config as {enabled?: boolean})?.enabled)
+  ) {
     return {
       ...state,
       mousePos: {
@@ -2595,7 +2596,10 @@ const ALLOWED_UPDATE_DATASET_PROPS = ['label', 'color', 'metadata'];
  * Makes sure color value is RGB
  * Performs deep merge when updating metadata
  */
-const validateDatasetUpdateProps = (props, dataset) => {
+const validateDatasetUpdateProps = (
+  props: Record<string, unknown>,
+  dataset: Record<string, unknown>
+) => {
   const validatedProps = Object.entries(props).reduce((acc, entry) => {
     const [key, value] = entry;
     // is it allowed ?
@@ -2610,7 +2614,12 @@ const validateDatasetUpdateProps = (props, dataset) => {
     }
 
     // do we need deep merge ?
-    return {...acc, [key]: isPlainObject(value) ? deepmerge(dataset[key] || {}, value) : value};
+    return {
+      ...acc,
+      [key]: isPlainObject(value)
+        ? deepmerge(dataset[key] || {}, value as Record<string, unknown>)
+        : value
+    };
   }, {});
 
   return validatedProps;

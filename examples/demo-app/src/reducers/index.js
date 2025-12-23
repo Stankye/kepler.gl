@@ -2,7 +2,6 @@
 // Copyright contributors to the kepler.gl project
 
 import {combineReducers} from 'redux';
-import {handleActions} from 'redux-actions';
 import Task, {withTask} from 'react-palm/tasks';
 
 import {aiAssistantReducer} from '@kepler.gl/ai-assistant';
@@ -64,24 +63,27 @@ const initialAppState = {
   // }
 };
 
+// Action handlers for app reducer
+const appActionHandler = {
+  [INIT]: state => ({
+    ...state,
+    loaded: true
+  }),
+  [LOAD_MAP_SAMPLE_FILE]: (state, action) => ({
+    ...state,
+    sampleMaps: action.samples
+  }),
+  [SET_SAMPLE_LOADING_STATUS]: (state, action) => ({
+    ...state,
+    isMapLoading: action.isMapLoading
+  })
+};
+
 // App reducer
-export const appReducer = handleActions(
-  {
-    [INIT]: state => ({
-      ...state,
-      loaded: true
-    }),
-    [LOAD_MAP_SAMPLE_FILE]: (state, action) => ({
-      ...state,
-      sampleMaps: action.samples
-    }),
-    [SET_SAMPLE_LOADING_STATUS]: (state, action) => ({
-      ...state,
-      isMapLoading: action.isMapLoading
-    })
-  },
-  initialAppState
-);
+export function appReducer(state = initialAppState, action) {
+  const handler = appActionHandler[action?.type];
+  return handler ? handler(state, action) : state;
+}
 
 const {DEFAULT_EXPORT_MAP} = uiStateUpdaters;
 
