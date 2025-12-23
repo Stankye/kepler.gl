@@ -58,7 +58,7 @@ const initialState: AiAssistantState = {
   }
 };
 
-type PayloadAction<T> = UnknownAction & { payload: T };
+type PayloadAction<T> = UnknownAction & {payload: T};
 
 const actionHandler = {
   [UPDATE_AI_ASSISTANT_CONFIG]: updateAiAssistantConfigHandler,
@@ -86,7 +86,10 @@ function updateAiAssistantConfigHandler(
   };
 }
 
-function updateAiAssistantMessagesHandler(state: AiAssistantState, action: PayloadAction<MessageModel[]>) {
+function updateAiAssistantMessagesHandler(
+  state: AiAssistantState,
+  action: PayloadAction<MessageModel[]>
+) {
   return {
     ...state,
     messages: action.payload

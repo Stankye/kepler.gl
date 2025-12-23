@@ -16,7 +16,7 @@ import {
 import {applyActions} from 'test/helpers/mock-state';
 
 // Simple createAction replacement
-const createAction = (type) => (payload) => ({type, payload});
+const createAction = type => payload => ({type, payload});
 
 test('keplerGlReducer.initialState', t => {
   const test1Reducer = keplerGlReducer.initialState({
