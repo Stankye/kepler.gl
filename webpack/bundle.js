@@ -25,10 +25,6 @@ const LIBRARY_BUNDLE_CONFIG = () => ({
     filename: 'bundle.js',
     publicPath: '/'
   },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-    modules: ['node_modules', SRC_DIR]
-  },
   // let's put everything in
   module: {
     rules: [
@@ -40,8 +36,12 @@ const LIBRARY_BUNDLE_CONFIG = () => ({
     ]
   },
 
-  node: {
-    fs: 'empty'
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+    modules: ['node_modules', SRC_DIR],
+    fallback: {
+      fs: false
+    }
   },
 
   plugins: [new webpack.EnvironmentPlugin(['MapboxAccessToken']), new BundleAnalyzerPlugin()]

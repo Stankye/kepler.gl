@@ -67,10 +67,6 @@ const LIBRARY_BUNDLE_CONFIG = () => ({
       root: 'styled'
     }
   },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-    modules: ['node_modules', SRC_DIR]
-  },
   module: {
     rules: [
       {
@@ -118,8 +114,12 @@ const LIBRARY_BUNDLE_CONFIG = () => ({
     ]
   },
 
-  node: {
-    fs: 'empty'
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+    modules: ['node_modules', SRC_DIR],
+    fallback: {
+      fs: false
+    }
   }
 });
 

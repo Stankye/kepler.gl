@@ -52,8 +52,10 @@ module.exports = {
       path: path.resolve(__dirname, '../..', 'keplergl', 'static'),
       libraryTarget: 'amd'
     },
-    node: {
-      fs: 'empty'
+    resolve: {
+      fallback: {
+        fs: false
+      }
     },
     plugins
   },
@@ -81,8 +83,10 @@ module.exports = {
       rules
     },
     externals: ['@jupyter-widgets/base'],
-    node: {
-      fs: 'empty'
+    resolve: {
+      fallback: {
+        fs: false
+      }
     },
     plugins
   },
@@ -116,8 +120,10 @@ module.exports = {
       rules
     },
     externals: ['@jupyter-widgets/base'],
-    node: {
-      fs: 'empty'
+    resolve: {
+      fallback: {
+        fs: false
+      }
     },
     plugins
   }

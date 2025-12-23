@@ -17,14 +17,18 @@ const port = 8080;
 
 const NODE_ENV = JSON.stringify(process.env.NODE_ENV || 'production');
 
+// Normalize path to use forward slashes (for esbuild compatibility on Windows)
+const normalizePath = p => p.replace(/\\/g, '/');
+const joinPath = (...args) => normalizePath(join(...args));
+
 // Ensure a single instance of React and friends to avoid invalid hook calls
-const ROOT_NODE_MODULES = join('..', '..', 'node_modules');
+const ROOT_NODE_MODULES = joinPath('..', '..', 'node_modules');
 const thirdPartyAliases = {
-  react: join(ROOT_NODE_MODULES, 'react'),
-  'react-dom': join(ROOT_NODE_MODULES, 'react-dom'),
-  'react-redux': join(ROOT_NODE_MODULES, 'react-redux', 'lib'),
-  'styled-components': join(ROOT_NODE_MODULES, 'styled-components'),
-  'apache-arrow': join(ROOT_NODE_MODULES, 'apache-arrow')
+  react: joinPath(ROOT_NODE_MODULES, 'react'),
+  'react-dom': joinPath(ROOT_NODE_MODULES, 'react-dom'),
+  'react-redux': joinPath(ROOT_NODE_MODULES, 'react-redux', 'lib'),
+  'styled-components': joinPath(ROOT_NODE_MODULES, 'styled-components'),
+  'apache-arrow': joinPath(ROOT_NODE_MODULES, 'apache-arrow')
 };
 
 const config = {
@@ -51,7 +55,9 @@ const config = {
     dotenvRun({
       verbose: true,
       environment: NODE_ENV,
-      root: '../../.env'
+      root: '../../.env',
+      // Only include specific environment variables to avoid Windows system variables with special characters
+      prefix: '^(Mapbox|Dropbox|Carto|Foursquare|NODE_)'
     }),
     replace({
       __PACKAGE_VERSION__: '3.1.10',

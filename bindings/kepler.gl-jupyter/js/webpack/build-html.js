@@ -97,7 +97,9 @@ module.exports = (rules, plugins) => ({
     new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/main/])
   ],
 
-  node: {
-    fs: 'empty'
+  resolve: {
+    fallback: {
+      fs: false
+    }
   }
 });

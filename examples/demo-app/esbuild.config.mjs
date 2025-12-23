@@ -9,24 +9,31 @@ import process from 'node:process';
 import fs from 'node:fs';
 import {spawn} from 'node:child_process';
 import {join} from 'node:path';
-import KeplerPackage from '../../package.json' assert {type: 'json'};
+import {createRequire} from 'node:module';
+
+const require = createRequire(import.meta.url);
+const KeplerPackage = require('../../package.json');
 
 const args = process.argv;
+
+// Normalize path to use forward slashes (for esbuild compatibility on Windows)
+const normalizePath = (p) => p.replace(/\\/g, '/');
+const joinPath = (...args) => normalizePath(join(...args));
 
 const BASE_NODE_MODULES_DIR = './node_modules';
 
 const LIB_DIR = '../../';
-const NODE_MODULES_DIR = join(LIB_DIR, 'node_modules');
-const SRC_DIR = join(LIB_DIR, 'src');
+const NODE_MODULES_DIR = joinPath(LIB_DIR, 'node_modules');
+const SRC_DIR = joinPath(LIB_DIR, 'src');
 
 // For debugging deck.gl, load deck.gl from external deck.gl directory
-const EXTERNAL_DECK_SRC = join(LIB_DIR, 'deck.gl');
+const EXTERNAL_DECK_SRC = joinPath(LIB_DIR, 'deck.gl');
 
 // For debugging loaders.gl, load loaders.gl from external loaders.gl directory
-const EXTERNAL_LOADERS_SRC = join(LIB_DIR, 'loaders.gl');
+const EXTERNAL_LOADERS_SRC = joinPath(LIB_DIR, 'loaders.gl');
 
 // For debugging hubble.gl, load hubble.gl from external hubble.gl directory
-const EXTERNAL_HUBBLE_SRC = join(LIB_DIR, '../../hubble.gl');
+const EXTERNAL_HUBBLE_SRC = joinPath(LIB_DIR, '../../hubble.gl');
 
 const port = 8080;
 
@@ -110,7 +117,9 @@ const config = {
     dotenvRun({
       verbose: true,
       environment: NODE_ENV,
-      root: '../../.env'
+      root: '../../.env',
+      // Only include specific environment variables to avoid Windows system variables with special characters
+      prefix: '^(Mapbox|Dropbox|Carto|Foursquare|NODE_)'
     }),
     // automatically injected kepler.gl package version into the bundle
     replace({
@@ -130,31 +139,31 @@ function addAliases(externals, args) {
 
   // resolve ai-assistant from local dir
   if (useLocalAiAssistant) {
-    resolveAlias['@openassistant/core'] = join(LIB_DIR, '../openassistant/packages/core/src');
-    resolveAlias['@openassistant/ui'] = join(LIB_DIR, '../openassistant/packages/ui/src');
-    resolveAlias['@openassistant/echarts'] = join(
+    resolveAlias['@openassistant/core'] = joinPath(LIB_DIR, '../openassistant/packages/core/src');
+    resolveAlias['@openassistant/ui'] = joinPath(LIB_DIR, '../openassistant/packages/ui/src');
+    resolveAlias['@openassistant/echarts'] = joinPath(
       LIB_DIR,
       '../openassistant/packages/components/echarts/src'
     );
-    resolveAlias['@openassistant/tables'] = join(
+    resolveAlias['@openassistant/tables'] = joinPath(
       LIB_DIR,
       '../openassistant/packages/components/tables/src'
     );
-    resolveAlias['@openassistant/geoda'] = join(
+    resolveAlias['@openassistant/geoda'] = joinPath(
       LIB_DIR,
       '../openassistant/packages/tools/geoda/src'
     );
-    resolveAlias['@openassistant/duckdb'] = join(
+    resolveAlias['@openassistant/duckdb'] = joinPath(
       LIB_DIR,
       '../openassistant/packages/tools/duckdb/src'
     );
-    resolveAlias['@openassistant/plots'] = join(
+    resolveAlias['@openassistant/plots'] = joinPath(
       LIB_DIR,
       '../openassistant/packages/tools/plots/src'
     );
-    resolveAlias['@openassistant/osm'] = join(LIB_DIR, '../openassistant/packages/tools/osm/src');
-    resolveAlias['@openassistant/utils'] = join(LIB_DIR, '../openassistant/packages/utils/src');
-    resolveAlias['@kepler.gl/ai-assistant'] = join(SRC_DIR, 'ai-assistant/src');
+    resolveAlias['@openassistant/osm'] = joinPath(LIB_DIR, '../openassistant/packages/tools/osm/src');
+    resolveAlias['@openassistant/utils'] = joinPath(LIB_DIR, '../openassistant/packages/utils/src');
+    resolveAlias['@kepler.gl/ai-assistant'] = joinPath(SRC_DIR, 'ai-assistant/src');
   }
 
   // resolve deck.gl from local dir
@@ -231,7 +240,7 @@ function openURL(url) {
   const loadAllDirs = modules.map(
     dir =>
       new Promise(success => {
-        fs.readdir(join(NODE_MODULES_DIR, dir), (err, items) => {
+        fs.readdir(joinPath(NODE_MODULES_DIR, dir), (err, items) => {
           if (err) {
             const colorRed = '\x1b[31m';
             const colorReset = '\x1b[0m';

@@ -10,9 +10,9 @@
     "esbuild": "yarn build-clean && yarn build-static && node esbuild.config.mjs --build",
     "start": "webpack serve --mode development --env prod --static-directory ./src/static --progress --open",
     "start-prod": "webpack serve --mode production --env prod --static-directory ./src/static --progress --open",
-    "build-clean": "rm -rf ./dist && mkdir dist",
-    "build-static": "cp -r ./src/static/* dist",
-    "build-script": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode production --env prod",
+    "build-clean": "rimraf ./dist && node -e \"require('fs').mkdirSync('./dist', {recursive: true})\"",
+    "build-static": "node -e \"const fs=require('fs');const path=require('path');function copy(s,d){fs.mkdirSync(d,{recursive:true});fs.readdirSync(s).forEach(f=>{const sp=path.join(s,f),dp=path.join(d,f);fs.statSync(sp).isDirectory()?copy(sp,dp):fs.copyFileSync(sp,dp)})};copy('./src/static','./dist')\"",
+    "build-script": "webpack --mode production --env prod",
     "build": "yarn build-clean && yarn build-static && yarn esbuild",
     "lint": "eslint src"
   },
@@ -60,6 +60,7 @@
     "eslint-plugin-react": "^7.13.0",
     "file-loader": "^1.1.11",
     "prettier": "1.19.1",
+    "rimraf": "^6.0.1",
     "source-map-loader": "^0.2.1",
     "style-loader": "^3.3.3",
     "url-loader": "^0.5.9",
@@ -77,8 +78,8 @@
     "node": ">=18"
   },
   "volta": {
-    "node": "18.18.2",
-    "yarn": "4.4.0"
+    "node": "24.3.0",
+    "yarn": "4.9.1"
   },
-  "packageManager": "yarn@4.4.0"
+  "packageManager": "yarn@4.9.1"
 }

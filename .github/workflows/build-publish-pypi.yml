@@ -27,7 +27,6 @@ jobs:
       - name: Build KeplerGL
         env:
           MapboxAccessTokenJupyter: ${{ secrets.mapbox_jupyter_token }}
-          NODE_OPTIONS: --openssl-legacy-provider
         run: |
           python -m virtualenv venv
           source venv/bin/activate

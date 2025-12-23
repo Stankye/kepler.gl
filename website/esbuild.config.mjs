@@ -6,12 +6,20 @@ import { replace } from 'esbuild-plugin-replace';
 import process from 'node:process';
 import { join } from 'node:path';
 import { spawn } from 'node:child_process';
-import WebsitePackage from '../package.json' assert {type: 'json'};
+import {createRequire} from 'node:module';
+
+const require = createRequire(import.meta.url);
+const WebsitePackage = require('../package.json');
 
 const args = process.argv;
+
+// Normalize path to use forward slashes (for esbuild compatibility on Windows)
+const normalizePath = (p) => p.replace(/\\/g, '/');
+const joinPath = (...args) => normalizePath(join(...args));
+
 const LIB_DIR = '../';
-const NODE_MODULES_DIR = join(LIB_DIR, 'node_modules');
-const SRC_DIR = join(LIB_DIR, 'src');
+const NODE_MODULES_DIR = joinPath(LIB_DIR, 'node_modules');
+const SRC_DIR = joinPath(LIB_DIR, 'src');
 
 const port = 3003;
 
@@ -31,7 +39,7 @@ const workspaces = WebsitePackage.workspaces;
 workspaces.forEach(workspace => {
   // workspace =  "./src/types",  "./src/constants", etc
   const moduleName = workspace.split('/').pop();
-  RESOLVE_LOCAL_ALIASES[`@kepler.gl/${moduleName}`] = join(SRC_DIR, `${moduleName}/src`);
+  RESOLVE_LOCAL_ALIASES[`@kepler.gl/${moduleName}`] = joinPath(SRC_DIR, `${moduleName}/src`);
 });
 
 const config = {
