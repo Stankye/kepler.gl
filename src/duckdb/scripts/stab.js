@@ -14,7 +14,7 @@ const tableDir = path.join(distDir, 'table');
 // Create directories
 [distDir, componentsDir, tableDir].forEach(dir => {
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+    fs.mkdirSync(dir, {recursive: true});
   }
 });
 

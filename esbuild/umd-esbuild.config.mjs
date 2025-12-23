@@ -37,12 +37,12 @@ const config = {
       include: /constants\/src\/default-settings\.ts/
     }),
     umdWrapper({
-      libraryName: "KeplerGl",
+      libraryName: 'KeplerGl',
       globals: {
-        "react": "React",
-        "react-dom": "ReactDOM",
-        'redux': 'Redux', 
-        'react-redux': 'ReactRedux', 
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        redux: 'Redux',
+        'react-redux': 'ReactRedux',
         'styled-components': 'styled'
       }
     })

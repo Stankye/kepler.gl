@@ -2,10 +2,10 @@
 // Copyright contributors to the kepler.gl project
 
 import esbuild from 'esbuild';
-import { replace } from 'esbuild-plugin-replace';
+import {replace} from 'esbuild-plugin-replace';
 import process from 'node:process';
-import { join } from 'node:path';
-import { spawn } from 'node:child_process';
+import {join} from 'node:path';
+import {spawn} from 'node:child_process';
 import {createRequire} from 'node:module';
 
 const require = createRequire(import.meta.url);
@@ -14,7 +14,7 @@ const WebsitePackage = require('../package.json');
 const args = process.argv;
 
 // Normalize path to use forward slashes (for esbuild compatibility on Windows)
-const normalizePath = (p) => p.replace(/\\/g, '/');
+const normalizePath = p => p.replace(/\\/g, '/');
 const joinPath = (...args) => normalizePath(join(...args));
 
 const LIB_DIR = '../';
@@ -31,7 +31,7 @@ const RESOLVE_LOCAL_ALIASES = {
   'react-intl': `${NODE_MODULES_DIR}/react-intl`,
   'react-palm': `${NODE_MODULES_DIR}/react-palm`,
   'tiny-warning': `${SRC_DIR}/utils/src/noop.ts`,
-  'apache-arrow': `${NODE_MODULES_DIR}/apache-arrow`,
+  'apache-arrow': `${NODE_MODULES_DIR}/apache-arrow`
 };
 
 // Add kepler.gl submodule aliases
@@ -56,9 +56,7 @@ const config = {
     '.woff': 'file',
     '.woff2': 'file'
   },
-  entryPoints: [
-    'src/main.js',
-  ],
+  entryPoints: ['src/main.js'],
   outfile: 'dist/bundle.js',
   bundle: true,
   define: {
@@ -113,9 +111,11 @@ function validateEnvVariable(variable, instruction) {
   if (args.includes('--build')) {
     // Validate environment variables before production build
     const ENV_VARIABLES_WITH_INSTRUCTIONS = {
-      MapboxAccessToken: 'Get your Mapbox token at https://www.mapbox.com/help/how-access-tokens-work/',
+      MapboxAccessToken:
+        'Get your Mapbox token at https://www.mapbox.com/help/how-access-tokens-work/',
       DropboxClientId: 'Get your Dropbox key at https://www.dropbox.com/developers',
-      MapboxExportToken: 'Get your Mapbox token at https://www.mapbox.com/help/how-access-tokens-work/',
+      MapboxExportToken:
+        'Get your Mapbox token at https://www.mapbox.com/help/how-access-tokens-work/',
       CartoClientId: 'Get your CARTO client id',
       FoursquareClientId: 'Get your Foursquare client id',
       FoursquareDomain: 'Set your Foursquare domain',
@@ -158,7 +158,7 @@ function validateEnvVariable(variable, instruction) {
           servedir: 'dist',
           port,
           fallback: 'dist/index.html',
-          onRequest: ({ remoteAddress, method, path, status, timeInMS }) => {
+          onRequest: ({remoteAddress, method, path, status, timeInMS}) => {
             console.info(remoteAddress, status, `"${method} ${path}" [${timeInMS}ms]`);
           }
         });

@@ -17,7 +17,7 @@ const KeplerPackage = require('../../package.json');
 const args = process.argv;
 
 // Normalize path to use forward slashes (for esbuild compatibility on Windows)
-const normalizePath = (p) => p.replace(/\\/g, '/');
+const normalizePath = p => p.replace(/\\/g, '/');
 const joinPath = (...args) => normalizePath(join(...args));
 
 const BASE_NODE_MODULES_DIR = './node_modules';
@@ -161,7 +161,10 @@ function addAliases(externals, args) {
       LIB_DIR,
       '../openassistant/packages/tools/plots/src'
     );
-    resolveAlias['@openassistant/osm'] = joinPath(LIB_DIR, '../openassistant/packages/tools/osm/src');
+    resolveAlias['@openassistant/osm'] = joinPath(
+      LIB_DIR,
+      '../openassistant/packages/tools/osm/src'
+    );
     resolveAlias['@openassistant/utils'] = joinPath(LIB_DIR, '../openassistant/packages/utils/src');
     resolveAlias['@kepler.gl/ai-assistant'] = joinPath(SRC_DIR, 'ai-assistant/src');
   }

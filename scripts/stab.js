@@ -11,7 +11,7 @@ const distDir = path.join(process.cwd(), 'dist');
 const indexFile = path.join(distDir, 'index.js');
 
 if (!fs.existsSync(distDir)) {
-  fs.mkdirSync(distDir, { recursive: true });
+  fs.mkdirSync(distDir, {recursive: true});
 }
 
 if (!fs.existsSync(indexFile)) {

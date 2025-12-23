@@ -42,14 +42,17 @@ const externals = [
   {'kepler.gl/schemas': 'KeplerGl'},
   {'kepler.gl/middleware': 'KeplerGl'},
   {'react-helmet': 'Helmet'}
-].reduce((accu, ext) => ({
-  ...accu,
-  [Object.keys(ext)[0]]: {
-    root: Object.values(ext)[0],
-    commonjs2: Object.keys(ext)[0],
-    commonjs: Object.keys(ext)[0]
-  }
-}), {});
+].reduce(
+  (accu, ext) => ({
+    ...accu,
+    [Object.keys(ext)[0]]: {
+      root: Object.values(ext)[0],
+      commonjs2: Object.keys(ext)[0],
+      commonjs: Object.keys(ext)[0]
+    }
+  }),
+  {}
+);
 
 module.exports = (rules, plugins) => ({
   entry,
@@ -79,7 +82,6 @@ module.exports = (rules, plugins) => ({
         'https://unpkg.com/maplibre-gl@^3/dist/maplibre-gl.css'
       ],
       scripts: [
-
         `https://unpkg.com/react@${VERSIONS.react}/umd/react.production.min.js`,
         `https://unpkg.com/react-dom@${VERSIONS.reactDom}/umd/react-dom.production.min.js`,
         `https://unpkg.com/redux@${VERSIONS.redux}/dist/redux.js`,
@@ -87,7 +89,7 @@ module.exports = (rules, plugins) => ({
         `https://unpkg.com/react-intl@${VERSIONS.reactIntl}/dist/react-intl.min.js`,
         `https://unpkg.com/react-copy-to-clipboard@${VERSIONS.reactCopyToClipboard}/build/react-copy-to-clipboard.min.js`,
 
-        `https://unpkg.com/styled-components@${VERSIONS.styledComponents}/dist/styled-components.min.js`,
+        `https://unpkg.com/styled-components@${VERSIONS.styledComponents}/dist/styled-components.min.js`
 
         // load kepler.gl last
         // `https://unpkg.com/kepler.gl@${VERSIONS.keplergl}/umd/keplergl.min.js`
