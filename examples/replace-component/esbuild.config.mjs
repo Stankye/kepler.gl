@@ -76,7 +76,9 @@ const config = {
     dotenvRun({
       verbose: true,
       environment: NODE_ENV,
-      root: '../../.env'
+      root: '../../.env',
+      // Only include specific environment variables to avoid Windows system variables with special characters
+      prefix: '^(Mapbox|Dropbox|Carto|Foursquare|NODE_)'
     }),
     // automatically injected kepler.gl package version into the bundle
     replace({

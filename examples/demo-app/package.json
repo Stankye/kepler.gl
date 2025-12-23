@@ -4,12 +4,12 @@
     "build": "node esbuild.config.mjs --build",
     "deploy": "yarn build && netlify deploy -d dist",
     "deploy:prod": "yarn build && netlify deploy -d dist --prod",
-    "start:local": "NODE_ENV=local node esbuild.config.mjs --start",
-    "start:local-ai": "NODE_ENV=local node esbuild.config.mjs --start --env.ai",
-    "start:local-deck": "NODE_ENV=local node esbuild.config.mjs --start --env.deck",
-    "start:local-deck-src": "NODE_ENV=local node esbuild.config.mjs --start --env.deck_src",
-    "start:local-loaders-src": "NODE_ENV=local node esbuild.config.mjs --start --env.loaders_src",
-    "start:local-hubble-src": "NODE_ENV=local node esbuild.config.mjs --start --env.hubble_src"
+    "start:local": "cross-env NODE_ENV=local node esbuild.config.mjs --start",
+    "start:local-ai": "cross-env NODE_ENV=local node esbuild.config.mjs --start --env.ai",
+    "start:local-deck": "cross-env NODE_ENV=local node esbuild.config.mjs --start --env.deck",
+    "start:local-deck-src": "cross-env NODE_ENV=local node esbuild.config.mjs --start --env.deck_src",
+    "start:local-loaders-src": "cross-env NODE_ENV=local node esbuild.config.mjs --start --env.loaders_src",
+    "start:local-hubble-src": "cross-env NODE_ENV=local node esbuild.config.mjs --start --env.hubble_src"
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^2.1.2",
@@ -76,6 +76,7 @@
   "packageManager": "yarn@4.9.1",
   "devDependencies": {
     "@dotenv-run/esbuild": "^1.5.0",
+    "cross-env": "^7.0.3",
     "esbuild-plugin-replace": "^1.4.0"
   }
 }
