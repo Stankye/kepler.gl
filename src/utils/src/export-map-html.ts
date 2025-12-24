@@ -51,8 +51,8 @@ export const exportMapToHTML = (options, version = KEPLER_GL_VERSION) => {
         <!-- Load React/Redux -->
         <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
-        <script src="https://unpkg.com/redux@4.2.1/dist/redux.js" crossorigin></script>
-        <script src="https://unpkg.com/react-redux@8.1.2/dist/react-redux.min.js" crossorigin></script>
+        <script src="https://unpkg.com/redux@5.0.1/dist/redux.js" crossorigin></script>
+        <script src="https://unpkg.com/react-redux@9.2.0/dist/react-redux.min.js" crossorigin></script>
         <script src="https://unpkg.com/styled-components@6.1.8/dist/styled-components.min.js" crossorigin></script>
 
         <!-- Load Kepler.gl -->
@@ -130,7 +130,7 @@ export const exportMapToHTML = (options, version = KEPLER_GL_VERSION) => {
           const store = (function createStore(redux, enhancers) {
             const initialState = {};
 
-            return redux.createStore(
+            return (redux.legacy_createStore || redux.createStore)(
               reducers,
               initialState,
               redux.compose(enhancers)

@@ -5,7 +5,7 @@ import React, {Dispatch} from 'react';
 import ReactDOM from 'react-dom/client';
 import {connect, Provider} from 'react-redux';
 
-import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
+import {applyMiddleware, combineReducers, compose, legacy_createStore as createStore} from 'redux';
 
 import KeplerGl from '@kepler.gl/components';
 import keplerGlReducer, {enhanceReduxMiddleware, KeplerGlState} from '@kepler.gl/reducers';

@@ -224,7 +224,7 @@ function decorate(target, savedInitialState = {}) {
  * @public
  * @example
  * import keplerGlReducer from '@kepler.gl/reducers';
- * import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+ * import {legacy_createStore as createStore, combineReducers, applyMiddleware, compose} from 'redux';
  * import {taskMiddleware} from 'react-palm/tasks';
  *
  * const initialState = {};

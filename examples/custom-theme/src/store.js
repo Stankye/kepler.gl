@@ -2,7 +2,7 @@
 // Copyright contributors to the kepler.gl project
 
 import Window from 'global/window';
-import {combineReducers, createStore, applyMiddleware, compose} from 'redux';
+import {combineReducers, legacy_createStore as createStore, applyMiddleware, compose} from 'redux';
 import {enhanceReduxMiddleware} from '@kepler.gl/reducers';
 
 import demoReducer from './reducers/index';

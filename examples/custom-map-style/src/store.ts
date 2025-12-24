@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright contributors to the kepler.gl project
 
-import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import {legacy_createStore as createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import keplerGlReducer, {enhanceReduxMiddleware} from '@kepler.gl/reducers';
 
 const mapStyles = {

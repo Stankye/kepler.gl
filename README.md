@@ -95,7 +95,7 @@ You need to add `taskMiddleware` of `react-palm` to your store too. We are activ
 `react-palm` will not be required, however it is still a very lightweight side effects management tool that is easier to test than react-thunk.
 
 ```js
-import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import {legacy_createStore as createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import keplerGlReducer from '@kepler.gl/reducers';
 import {enhanceReduxMiddleware} from '@kepler.gl/middleware';
 

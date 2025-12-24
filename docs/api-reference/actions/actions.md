@@ -200,8 +200,8 @@ Type: [Object][164]
 
 ```javascript
 // store.js
-import {handleActions} from 'redux-actions';
-import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {handleActions} from '@kepler.gl/reducers';
+import {legacy_createStore as createStore, combineReducers, applyMiddleware} from 'redux';
 import {taskMiddleware} from 'react-palm/tasks';
 
 import keplerGlReducer from '@kepler.gl/reducers';

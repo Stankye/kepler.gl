@@ -47,12 +47,17 @@ const getThirdPartyLibraryAliases = useKeplerNodeModules => {
       }
     : {};
 
+  // react-redux alias only needed when using kepler node_modules (which have v9)
+  // local node_modules may have v8 with different structure
+  const reactReduxAlias = useKeplerNodeModules
+    ? {'react-redux': `${nodeModulesDir}/react-redux/dist/cjs/index.js`}
+    : {};
+
   return {
     ...localSources,
+    ...reactReduxAlias,
     react: `${nodeModulesDir}/react`,
     'react-dom': `${nodeModulesDir}/react-dom`,
-    // react-redux v9 uses dist/cjs instead of lib
-    'react-redux': `${nodeModulesDir}/react-redux/dist/cjs`,
     'styled-components': `${nodeModulesDir}/styled-components`,
     'react-intl': `${nodeModulesDir}/react-intl`,
     'react-palm': `${nodeModulesDir}/react-palm`,

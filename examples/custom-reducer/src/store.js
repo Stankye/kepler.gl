@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright contributors to the kepler.gl project
 
-import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import {legacy_createStore as createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import keplerGlReducer, {uiStateUpdaters, enhanceReduxMiddleware} from '@kepler.gl/reducers';
 import appReducer from './app-reducer';
 import Window from 'global/window';

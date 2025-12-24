@@ -5,7 +5,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom/client';
 import {connect, Provider} from 'react-redux';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
+import {applyMiddleware, combineReducers, compose, legacy_createStore as createStore} from 'redux';
 import document from 'global/document';
 
 import keplerGlReducer, {enhanceReduxMiddleware} from '@kepler.gl/reducers';

@@ -5,7 +5,7 @@ import {combineReducers, legacy_createStore as createStore, applyMiddleware, com
 import {routerReducer, routerMiddleware} from 'react-router-redux';
 import {browserHistory} from 'react-router';
 import {createLogger} from 'redux-logger';
-import {thunk} from 'redux-thunk';
+import thunk from 'redux-thunk';
 
 import {enhanceReduxMiddleware} from '@kepler.gl/reducers';
 
