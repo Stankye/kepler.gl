@@ -12,7 +12,7 @@ export const ACTION_PREFIX = '@@kepler.gl/';
  * @example
  * // store.js
  * import {handleActions} from '@kepler.gl/reducers';
- * import {legacy_createStore as createStore, combineReducers, applyMiddleware} from 'redux';
+ * import {configureStore} from '@reduxjs/toolkit';
  * import {taskMiddleware} from 'react-palm/tasks';
  *
  * import keplerGlReducer from '@kepler.gl/reducers';
@@ -26,12 +26,15 @@ export const ACTION_PREFIX = '@@kepler.gl/';
  *   }),
  * }, {});
  *
- * const reducers = combineReducers({
+ * const reducer = {
  *   app: appReducer,
  *   keplerGl: keplerGlReducer
- * });
+ * };
  *
- * export default createStore(reducers, {}, applyMiddleware(taskMiddleware))
+ * export default configureStore({
+ *   reducer,
+ *   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(taskMiddleware)
+ * });
  */
 export const ActionTypes = {
   // identity action

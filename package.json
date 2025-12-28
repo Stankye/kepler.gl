@@ -192,8 +192,8 @@
     "nyc": "^15.1.0",
     "prettier": "2.8.8",
     "progress-bar-webpack-plugin": "^2.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hot-loader": "^4.13.0",
     "readdirp": "^2.1.0",
     "redux-logger": "^3.0.6",
@@ -285,7 +285,7 @@
     ]
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "volta": {
     "node": "24.3.0",

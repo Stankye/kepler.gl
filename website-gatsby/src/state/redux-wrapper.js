@@ -3,10 +3,10 @@
 
 import React from 'react';
 import {Provider} from 'react-redux';
-import {legacy_createStore as reduxCreateStore} from 'redux';
+import {configureStore} from '@reduxjs/toolkit';
 import rootReducer from '.';
 
-const createStore = () => reduxCreateStore(rootReducer);
+const createStore = () => configureStore({reducer: rootReducer});
 
 // Wraps the root-component in Gatsby
 export default ({element}) => <Provider store={createStore()}>{element}</Provider>;

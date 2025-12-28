@@ -1,6 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
 import keplerGlReducer, {enhanceReduxMiddleware} from '@kepler.gl/reducers';
-import {Middleware} from 'redux';
 import appReducer from './appSlice';
 
 const store = configureStore({

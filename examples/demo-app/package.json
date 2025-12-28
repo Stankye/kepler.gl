@@ -33,6 +33,7 @@
     "@loaders.gl/parquet": "^4.3.2",
     "@openassistant/core": "^0.5.17",
     "@openassistant/ui": "^0.5.17",
+    "@reduxjs/toolkit": "^2.5.1",
     "@types/classnames": "^2.3.1",
     "@types/keymirror": "^0.1.1",
     "apache-arrow": ">=15.0.0",
@@ -44,8 +45,8 @@
     "keymirror": "^0.1.1",
     "markdown-to-jsx": "^7.7.6",
     "prop-types": "^15.6.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-intl": "^6.3.0",
     "react-redux": "^9.2.0",
     "react-resizable-panels": "^2.1.7",
@@ -66,7 +67,7 @@
     "react-vis": "1.11.7"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "volta": {
     "node": "24.3.0",

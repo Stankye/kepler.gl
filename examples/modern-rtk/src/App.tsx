@@ -1,4 +1,3 @@
-import React from 'react';
 import KeplerGl from '@kepler.gl/components';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
@@ -61,7 +60,7 @@ function App() {
           This example demonstrates Kepler.gl running with Redux Toolkit 2.0 and TanStack Query.
         </p>
         <button 
-          onClick={() => dispatch(loadCustomData())}
+          onClick={() => dispatch(loadCustomData() as any)}
           disabled={isLoading}
           style={{
             padding: '10px',
@@ -75,6 +74,7 @@ function App() {
         {error && <p style={{color: 'red'}}>{error}</p>}
       </SidePanel>
       <MapContainer>
+        {/* @ts-ignore */}
         <AutoSizer>
           {({height, width}) => (
             <KeplerGl

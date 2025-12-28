@@ -26,6 +26,10 @@ export const loadCustomData = createAsyncThunk('app/loadCustomData', async (_, {
   // Process data using Kepler.gl processor
   const data = processCsvData(csvData);
 
+  if (!data) {
+    throw new Error('Failed to process CSV data');
+  }
+
   // Dispatch Kepler.gl action to add data to map
   dispatch(
     addDataToMap({
@@ -36,7 +40,7 @@ export const loadCustomData = createAsyncThunk('app/loadCustomData', async (_, {
         },
         data
       },
-      option: {
+      options: {
         centerMap: true,
         readOnly: false
       },
@@ -61,7 +65,7 @@ export const appSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(loadCustomData.fulfilled, (state, action) => {
+      .addCase(loadCustomData.fulfilled, (state) => {
         state.isLoading = false;
       })
       .addCase(loadCustomData.rejected, (state, action) => {

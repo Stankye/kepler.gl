@@ -2,6 +2,9 @@
   "name": "kepler-app-esbuild",
   "version": "0.0.1",
   "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "bootstrap": "yarn install && yarn",
     "build": "node esbuild.config.mjs --build",
@@ -10,8 +13,9 @@
   "dependencies": {
     "@kepler.gl/components": "^3.1.10",
     "@kepler.gl/reducers": "^3.1.10",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@reduxjs/toolkit": "^2.5.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",
     "react-scripts": "^5.0.1"
   },

@@ -5,29 +5,33 @@ import * as React from 'react';
 import ReactDOM from 'react-dom/client';
 import {connect, Provider} from 'react-redux';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-import {applyMiddleware, combineReducers, compose, legacy_createStore as createStore} from 'redux';
+import {configureStore} from '@reduxjs/toolkit';
 import document from 'global/document';
 
 import keplerGlReducer, {enhanceReduxMiddleware} from '@kepler.gl/reducers';
 import KeplerGl from '@kepler.gl/components';
 
-const reducers = combineReducers({
+const reducer = {
   keplerGl: keplerGlReducer.initialState({
     uiState: {
       readOnly: false,
       currentModal: null
     }
   })
+};
+
+const store = configureStore({
+  reducer,
+  middleware: getDefaultMiddleware => {
+    const middlewares = enhanceReduxMiddleware([
+      // Add other middlewares here
+    ]);
+    return getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false
+    }).concat(middlewares);
+  }
 });
-
-const middleWares = enhanceReduxMiddleware([
-  // Add other middlewares here
-]);
-
-const enhancers = applyMiddleware(...middleWares);
-
-const initialState = {};
-const store = createStore(reducers, initialState, compose(enhancers));
 
 const App = () => (
   <div

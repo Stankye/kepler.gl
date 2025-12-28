@@ -1,27 +1,23 @@
 // SPDX-License-Identifier: MIT
 // Copyright contributors to the kepler.gl project
 
-import {combineReducers, legacy_createStore as createStore, applyMiddleware, compose} from 'redux';
+import {configureStore} from '@reduxjs/toolkit';
 import {routerReducer, routerMiddleware} from 'react-router-redux';
 import {browserHistory} from 'react-router';
 import {createLogger} from 'redux-logger';
-import thunk from 'redux-thunk';
-
+import {thunk} from 'redux-thunk';
 import {enhanceReduxMiddleware} from '@kepler.gl/reducers';
-
-// eslint-disable-next-line no-unused-vars
-import Window from 'global/window';
-
 import demoReducer from './reducers/index';
 
-const reducers = combineReducers({
+const reducer = {
   demo: demoReducer,
   routing: routerReducer
-});
+};
 
-export const middlewares = enhanceReduxMiddleware([thunk, routerMiddleware(browserHistory)]);
+const middlewares = [thunk, routerMiddleware(browserHistory)];
 
-if (NODE_ENV === 'local') {
+// eslint-disable-next-line no-undef
+if (process.env.NODE_ENV === 'local') {
   // Redux logger
   const logger = createLogger({
     collapsed: () => true // Collapse all actions for more compact log
@@ -29,25 +25,22 @@ if (NODE_ENV === 'local') {
   middlewares.push(logger);
 }
 
-export const enhancers = [applyMiddleware(...middlewares)];
-
-const initialState = {};
-
-// eslint-disable-next-line prefer-const
-let composeEnhancers = compose;
-
-/**
- * comment out code below to enable Redux Devtools
- */
-
-if (Window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-  composeEnhancers = Window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    actionsBlacklist: [
+const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
+      thunk: false // We are adding thunk manually via middlewares array
+    }).concat(enhanceReduxMiddleware(middlewares)),
+  devTools: {
+    actionsDenylist: [
       '@@kepler.gl/MOUSE_MOVE',
       '@@kepler.gl/UPDATE_MAP',
       '@@kepler.gl/LAYER_HOVER'
     ]
-  });
-}
+  },
+  preloadedState: {}
+});
 
-export default createStore(reducers, initialState, composeEnhancers(...enhancers));
+export default store;

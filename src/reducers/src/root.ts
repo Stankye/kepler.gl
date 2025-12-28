@@ -224,20 +224,22 @@ function decorate(target, savedInitialState = {}) {
  * @public
  * @example
  * import keplerGlReducer from '@kepler.gl/reducers';
- * import {legacy_createStore as createStore, combineReducers, applyMiddleware, compose} from 'redux';
+ * import {configureStore} from '@reduxjs/toolkit';
  * import {taskMiddleware} from 'react-palm/tasks';
  *
- * const initialState = {};
- * const reducers = combineReducers({
+ * const reducer = {
  *   // <-- mount kepler.gl reducer in your app
  *   keplerGl: keplerGlReducer,
  *
  *   // Your other reducers here
  *   app: appReducer
- * });
+ * };
  *
- * // using createStore
- * export default createStore(reducer, initialState, applyMiddleware(taskMiddleware));
+ * // using configureStore
+ * export default configureStore({
+ *   reducer,
+ *   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(taskMiddleware)
+ * });
  */
 const keplerGlReducer = decorate(_keplerGlReducer);
 export default keplerGlReducer;
